@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Imageination</title>
+    <body style="background-color: LightGray;">
+        <h1>Upload an image...</h1>
+        <<form action="/upload" method="POST" enctype="multipart/form-data">
+          <div class="form-group">
+              <div class="custom-file">
+                  <input type="file" class="custom-file-input" name="image" id="image">
+                  <label class="custom-file-label" for="image">Select an image...</label>
+              </div>
+          </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        {% if filename %}
+         <img src="{{filename}}" height="640" width="480">
+        {% else %}
+         <h2>No image uploaded currently...</h2>
+        {% endif %}
+    </body>
+</head>
+<body>
+</body>
+</html>
