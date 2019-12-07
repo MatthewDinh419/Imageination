@@ -1,0 +1,20 @@
+.carousel_pos{
+    margin-top: -100px;
+    margin-left: -55px;
+}
+
+.carousel-item img{
+    height: 400px;
+    width: 300px !important;
+}
+.carousel{
+    height: 600px !important;
+}
+
+p{
+    text-align: center;
+    position: fixed;
+    margin-top: 10px;
+    font-weight: bold;
+    width: 300px
+}

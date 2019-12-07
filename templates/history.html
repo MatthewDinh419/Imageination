@@ -3,8 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <title>Image History</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/history.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static',filename='materialize.min.css') }}"  media="screen,projection"/>
 </head>
+
 <body>
-    <h1>Hello World!!!</h1>
+      <!--Navigation Bar-->
+      <nav>
+        <div class="nav-wrapper">
+          <a href="/" class="brand-logo center">Imagination</a>
+          <ul id="nav-mobile" class="left hide-on-med-and-down">
+            <li><a href="/">Homepage</a></li>
+            <li><a class="active" href="history">Image History</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="carousel carousel_slide" id="img_carousel">
+            <!--Carousel items will be dynamically added here-->
+      </div>
+
+      <!--Javascript logic to dynamically add images to the carousel-->
+      <script>
+        function create_caption(caption)
+        {
+            var par = document.createElement("p");
+            var text = document.createTextNode(caption);
+            par.appendChild(text);
+            document.body.appendChild(par);
+        }
+        function show_image(src, caption)
+        {
+            //Concat strings to form a carousel item node
+            var first_part = "<div class=\"carousel-item carousel_pos\">"
+            var second_part = first_part.concat('<img src="{{ url_for("static",filename="")}}', src, '">')
+            var final_part = second_part.concat("<p>", caption, "</p></div>")
+
+            document.getElementById("img_carousel").insertAdjacentHTML('beforeend',final_part)
+        }
+
+        //Get redis json information from the flask server
+        var redis_json = JSON.parse('{{ redis_json | tojson | safe}}');
+        console.log(redis_json)
+
+        //Iterate through all the filenames in the database
+        for(let filename in redis_json)
+        {
+            console.log("Servicing filename: " + "uploads/" + filename)
+            show_image("uploads/" + filename, redis_json[filename])
+        }
+    </script>
+
+  <script>
+    //Initialize materialize carousel
+    document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.carousel');
+    var instances = M.Carousel.init(elems, {});
+  });
+</script>
+  <script type="text/javascript" src="{{ url_for('static',filename='materialize.min.js') }}"></script>
 </body>
 </html>

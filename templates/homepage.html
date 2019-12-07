@@ -3,25 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <title>Imageination</title>
-    <body style="background-color: LightGray;">
-        <a href="history">Image History</a>
-        <h1>Upload an image...</h1>
-        <<form action="/upload" method="POST" enctype="multipart/form-data">
-          <div class="form-group">
-              <div class="custom-file">
-                  <input type="file" class="custom-file-input" name="image" id="image">
-                  <label class="custom-file-label" for="image">Select an image...</label>
-              </div>
-          </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-        {% if filename %}
-         <img src="{{filename}}" height="640" width="480">
-        {% else %}
-         <h2>No image uploaded currently...</h2>
-        {% endif %}
-    </body>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/homepage.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static',filename='materialize.min.css') }}"  media="screen,projection"/>
 </head>
-<body>
-</body>
+    <body>
+
+        <!--Navigation Bar-->
+        <nav>
+        <div class="nav-wrapper">
+          <a href="/" class="brand-logo center">Imagination</a>
+          <ul id="nav-mobile" class="left hide-on-med-and-down">
+            <li><a class="active" href="/">Homepage</a></li>
+            <li><a href="history">Image History</a></li>
+          </ul>
+        </div>
+      </nav>
+
+        <!--Images will be dynamically added here once the user uploads an image-->
+        <center>
+            <div class="image_block" id="image_id">
+
+            </div>
+        </center>
+
+        <!--HTML element that allows the user to upload an image-->
+        <center>
+        <div class="upload_block">
+            <form action="/upload" method="POST" enctype="multipart/form-data">
+              <div class="form-group">
+                  <div class="custom-file">
+                      <input type="file" class="custom-file-input" name="image" id="image">
+                      <label class="custom-file-label" for="image">Select an image...</label>
+                  </div>
+              </div>
+                <center><button type="submit" class="btn btn-primary">Submit</button></center>
+            </form>
+        </div>
+        </center>
+    </body>
+
+    <!--Javascript logic which will append the user uploaded image to the website-->
+    <script>
+        function create_caption(caption)
+        {
+            var par = document.createElement("p");
+            var text = document.createTextNode(caption);
+            par.appendChild(text);
+            document.getElementById('image_id').appendChild(par);
+        }
+        function show_image(src, width, height)
+        {
+            var img = document.createElement("img");
+            img.src = src;
+            img.width = width;
+            img.height = height;
+
+            // This next line will just add it to the <body> tag
+            document.getElementById('image_id').appendChild(img);
+        }
+        var filename_dict = JSON.parse('{{ filename_dict | tojson | safe}}');
+        console.log(filename_dict)
+
+        for(let filename in filename_dict)
+        {
+            console.log("Using filename: " + filename)
+            show_image("../static/uploads/" + filename, 480, 640)
+            create_caption(filename_dict[filename])
+        }
+    </script>
 </html>
