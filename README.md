@@ -20,3 +20,13 @@ How to Run:
 
     1) Install the dependencies listed above
     2) Run app.py
+    
+Google Cloud Virtual Machine Instructions
+    
+    This will create virtual machine instances which will start a server for flask and redis.
+    
+    1) Authenticate using "gcloud auth login"
+    2) Set project id using gcloud config set project "project_id"
+    3) Change "project_id" to your project id in the file GCP/setup.sh
+    4) chmod +x GCP/setup.sh
+    5) ./GCP/setup.sh
