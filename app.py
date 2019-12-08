@@ -7,7 +7,7 @@ app = Flask(__name__)
 app.config["IMAGE_UPLOADS"] = os.path.join('static','uploads')
 
 #Setup redis database
-hostname = "redis"
+hostname = "redis-server"
 redis_history = redis.Redis(host=hostname, db=1)
 
 @app.route('/')
