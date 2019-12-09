@@ -12,6 +12,3 @@ sudo apt-get install -y python3 python3-pip python3-pillow python3-openalpr pyth
 git clone https://github.com/MatthewDinh419/Imageination.git
 cd Imageination
 python3 app.py
-
-
-
