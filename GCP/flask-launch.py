@@ -29,9 +29,10 @@ def create_instance(compute, project, zone, name, bucket):
             {
                 'boot': True,
                 'autoDelete': True,
-                'initializeParams': {
-                    'sourceImage': source_disk_image,
-                }
+                # 'initializeParams': {
+                #     'sourceImage': source_disk_image,
+                # }
+                'source': "zones/" + zone + "/disks/" + "rest-server-disk"
             }
         ],
 
