@@ -1,10 +1,15 @@
+#!/usr/bin/python3
 from flask import Flask, render_template, request
 import os
 import redis
+
 app = Flask(__name__)
 
 #Setup base directory for images
 app.config["IMAGE_UPLOADS"] = os.path.join('static','uploads')
+
+#Train Model
+import train
 
 #Setup redis database
 hostname = "redis-server"
@@ -14,20 +19,23 @@ redis_history = redis.Redis(host=hostname, db=1)
 def homepage():
     return render_template("homepage.html", filename_dict=None)
 
-@app.route('/upload', methods=["GET", "POST"])
+@app.route('/upload', methods=["POST"])
 def upload():
-    if request.method == "POST":
-        if request.files:
-            image = request.files["image"]
-            img_path = os.path.join(app.config["IMAGE_UPLOADS"], image.filename)
-            image.save(img_path)
+    if request.files:
+        image = request.files["image"]
+        img_path = os.path.join(app.config["IMAGE_UPLOADS"], image.filename)
+        image.save(img_path)
 
-            caption = "INSERT CAPTION HERE"
-            redis_history.set(image.filename, caption)
-            filename_caption_dict = {}
-            filename_caption_dict[image.filename] = caption
+        print("try")
+        result, attention_plot = train.evaluate(img_path)
+        print('Prediction Caption:', ' '.join(result))
 
-            return render_template("homepage.html", filename_dict=filename_caption_dict)
+        caption = ' '.join(result)
+        redis_history.set(image.filename, caption)
+        filename_caption_dict = {}
+        filename_caption_dict[image.filename] = caption
+
+        return render_template("homepage.html", filename_dict=filename_caption_dict)
     return render_template("homepage.html")
 
 @app.route('/history', methods=["GET"])
