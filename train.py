@@ -24,12 +24,13 @@ import os
 import time
 import json
 from tqdm import tqdm
+from zipfile import ZipFile
 
 annotation_zip = tf.keras.utils.get_file('captions.zip',
                                           cache_subdir=os.path.abspath('.'),
                                           origin = 'http://images.cocodataset.org/annotations/annotations_trainval2014.zip',
                                           extract = True)
-annotation_file = os.path.dirname(annotation_zip)+'\\annotations\\captions_train2014.json'
+annotation_file = os.path.dirname(annotation_zip)+'/annotations/captions_train2014.json'
 
 name_of_zip = 'train2014.zip'
 if not os.path.exists(os.path.abspath('.') + '/' + name_of_zip):
@@ -40,6 +41,8 @@ if not os.path.exists(os.path.abspath('.') + '/' + name_of_zip):
   PATH = os.path.dirname(image_zip)+'/train2014/'
 else:
   PATH = os.path.abspath('.')+'/train2014/'
+with zipfile.ZipFile("captions.zip", "r") as zip_ref:
+  zip_ref.extractall()
 #################################################################################
 print("optional: limit the size of the training set")
 # Read the json file
