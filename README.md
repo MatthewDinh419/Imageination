@@ -35,5 +35,7 @@ Google Cloud Virtual Machine Instructions:
     5) ./GCP/setup.sh
 
 Images:
-![Homepage](./Screenshots/Screen Shot 2019-12-09 at 16.06.59.png)
-![History](./Screenshots/Screen Shot 2019-12-09 at 16.07.13.png)
+Homepage
+<img width="1103" alt="Screen Shot 2019-12-09 at 16 06 59" src="https://user-images.githubusercontent.com/32148534/70481208-1f91ea00-1a9f-11ea-831a-99488f776683.png">
+History
+<img width="1102" alt="Screen Shot 2019-12-09 at 16 07 13" src="https://user-images.githubusercontent.com/32148534/70481285-5405a600-1a9f-11ea-9555-c0bb85d7b3e5.png">
