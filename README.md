@@ -16,12 +16,15 @@ Requirements to be installed:
     -Redis v3.3.11
     -Flask v1.1.1
     -Tensorflow v2.0
+    -Numpy v1.17.4
+    -Sklearn v0.0
+    -Tqdm v4.40.1
 How to Run:
 
     1) Install the dependencies listed above
     2) Run app.py
     
-Google Cloud Virtual Machine Instructions
+Google Cloud Virtual Machine Instructions:
     
     This will create virtual machine instances which will start a server for flask and redis.
     
@@ -30,3 +33,7 @@ Google Cloud Virtual Machine Instructions
     3) Change "project_id" to your project id in the file GCP/setup.sh
     4) chmod +x GCP/setup.sh
     5) ./GCP/setup.sh
+
+Images:
+![Homepage](./Screenshots/Screen Shot 2019-12-09 at 16.06.59.png)
+![History](./Screenshots/Screen Shot 2019-12-09 at 16.07.13.png)
