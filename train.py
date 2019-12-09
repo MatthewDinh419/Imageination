@@ -24,7 +24,6 @@ import os
 import time
 import json
 from tqdm import tqdm
-import zipfile
 
 annotation_zip = tf.keras.utils.get_file('captions.zip',
                                           cache_subdir=os.path.abspath('.'),
@@ -41,8 +40,6 @@ if not os.path.exists(os.path.abspath('.') + '/' + name_of_zip):
   PATH = os.path.dirname(image_zip)+'/train2014/'
 else:
   PATH = os.path.abspath('.')+'/train2014/'
-with zipfile.ZipFile("./captions.zip", "r") as zip_ref:
-  zip_ref.extractall("./")
 #################################################################################
 print("optional: limit the size of the training set")
 # Read the json file

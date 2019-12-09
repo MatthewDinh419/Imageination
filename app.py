@@ -28,9 +28,9 @@ def upload():
 
         print("try")
         result, attention_plot = train.evaluate(img_path)
-        print('Prediction Caption:', ' '.join(result))
+        print('Prediction Caption:', ' '.join(result[:-1]))
 
-        caption = ' '.join(result)
+        caption = ' '.join(result[:-1])
         redis_history.set(image.filename, caption)
         filename_caption_dict = {}
         filename_caption_dict[image.filename] = caption

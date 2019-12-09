@@ -13,7 +13,7 @@ def create_instance(compute, project, zone, name, bucket):
     source_disk_image = image_response['selfLink']
 
     # Configure the machine
-    machine_type = "zones/%s/machineTypes/f1-micro" % zone
+    machine_type = "zones/%s/machineTypes/n1-standard-4" % zone
     startup_script = open(
         os.path.join(
             os.path.dirname(__file__), 'rest-install.sh'), 'r').read()
